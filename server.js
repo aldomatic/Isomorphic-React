@@ -21,14 +21,32 @@ app.use(express.static(__dirname + '/public'));
 
 // React Components
 var OfferTable = React.createFactory(require('./components/OfferTable'));
-var OfferTable_initialProps = {title: "Markypoo"};
 
+// This opbject will hold the initial app state. 
+var initialStateForComponents = {
+	offerTable: {
+		title: "Markypoo" 
+	},
+	offerTableRow: {
+		offers: [{
+				offer: "Column 1",
+				url: "Column 2",
+				actions: "Column 3"
+			},
+			{
+				offer: "Column 1",
+				url: "Column 2",
+				actions: "Column 3"
+			}
+		]
+	}
+};
 
 // Routes
 app.get('/', function(req, res) {
 	res.render('index', {
 		reactHtml: ReactDOMServer.renderToStaticMarkup(OfferTable({})),
-		props: JSON.stringify(OfferTable_initialProps)
+		initialState: JSON.stringify(initialStateForComponents)
 	});
 });
 
